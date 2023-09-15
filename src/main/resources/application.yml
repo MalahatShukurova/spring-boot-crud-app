@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mysql
+    username: root
+    password: 123456
+  jpa:
+    hibernate.ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+  liquibase:
+     enabled: true
+     drop-first: false
+     change-log: db/changelog/db.changelog-master.yaml
+     default-schema: mysql

@@ -1,0 +1,42 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  20230913
+       author: malahat
+       description: Hello
+       changes:
+         -  createTable:
+              tableName: customers
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  surname
+                     type:  varchar(50)
+                     constraints:
+                       nullable:  false
+                - column:
+                    name: address
+                    type: varchar(50)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: age
+                    type: int
+                    constraints:
+                      nullable: false
+                - column:
+                    name: number
+                    type: varchar(50)
+                    constraints:
+                      nullable: false
+
