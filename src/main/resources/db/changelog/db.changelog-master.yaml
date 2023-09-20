@@ -1,3 +1,7 @@
 databaseChangeLog:
+  - includeAll:
+        path: classpath*:db/changelog/v1
   - include:
       file: db/changelog/v1/20230913-Test.yaml
+  - include:
+     file: db/changelog/v1/20230920-addingProductTable.yaml

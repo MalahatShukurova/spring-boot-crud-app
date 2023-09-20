@@ -1,13 +1,13 @@
 package com.malahat.springbootcrudapp.service;
 
-import com.malahat.springbootcrudapp.entity.Customer;
-import com.malahat.springbootcrudapp.repository.CustomerRepository;
+
+import com.malahat.springbootcrudapp.model.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    Customer getOneCustomer(Long customerId);
+    Customer getOneCustomer(Long id);
 
     List<Customer> getAllCustomers();
 

@@ -1,8 +1,9 @@
 package com.malahat.springbootcrudapp.controller;
 
-import com.malahat.springbootcrudapp.entity.Customer;
+
+import com.malahat.springbootcrudapp.model.Customer;
 import com.malahat.springbootcrudapp.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import liquibase.logging.mdc.CustomMdcObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,22 +13,24 @@ import java.util.List;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
+    public CustomerController(CustomerService customerService){
+        this.customerService = customerService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return ResponseEntity.ok().body(customerService.getAllCustomers());
     }
 
-    @GetMapping("/{customerId}")
-    public ResponseEntity<Customer> getOneCustomer(@PathVariable long customerId) {
+    @GetMapping("/one")
+    public ResponseEntity<Customer> getOneCustomer(@RequestParam("id") long customerId) {
         return ResponseEntity.ok().body(customerService.getOneCustomer(customerId));
     }
 
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
-        return ResponseEntity.ok().body(this.customerService.createCustomer(customer));
+        return new ResponseEntity<>(customerService.createCustomer(customer),HttpStatus.CREATED);
     }
 
     @PutMapping("/{customerId}")

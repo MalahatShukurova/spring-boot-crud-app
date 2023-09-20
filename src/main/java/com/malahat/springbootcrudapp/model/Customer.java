@@ -1,12 +1,11 @@
-package com.malahat.springbootcrudapp.entity;
+package com.malahat.springbootcrudapp.model;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.regex.Pattern;
 
 @Entity
 @Data
@@ -17,7 +16,7 @@ import java.util.regex.Pattern;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -30,9 +29,14 @@ public class Customer {
     private String address;
 
     @Column
-    private int age;
+    private Integer age;
 
     @Column
     private String number;
+
+    /// one to one
+    // many to one
+    // one to many
+    //many to many
 
 }

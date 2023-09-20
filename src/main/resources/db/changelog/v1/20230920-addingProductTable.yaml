@@ -1,0 +1,29 @@
+databaseChangeLog:
+  -  preConditions:
+     -  runningAs:
+         username:  root
+
+  -  changeSet:
+       id:  20230920
+       author:  malahat2
+       changes:
+         -  createTable:
+              tableName:  product
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  varchar(255)
+                     constraints:
+                       nullable: false
+                - column:
+                    name: price
+                    type: double
+                    constraints:
+                      nullable: false

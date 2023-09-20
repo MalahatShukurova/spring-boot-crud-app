@@ -2,7 +2,6 @@ databaseChangeLog:
   -  changeSet:
        id:  20230913
        author: malahat
-       description: Hello
        changes:
          -  createTable:
               tableName: customers
