@@ -1,18 +1,19 @@
 databaseChangeLog:
   -  changeSet:
-       id:  20230913
+       id:  20230913-02
        author: malahat
        changes:
          -  createTable:
-              tableName: customers
+              tableName: customer
               columns:
                 -  column:
                      name:  id
                      type:  bigint
-                     autoIncrement:  true
+                     valueComputed: seq_customer_id
                      constraints:
                        primaryKey:  true
                        nullable:  false
+                       primaryKeyName: pk_customer_id
                 -  column:
                      name:  name
                      type:  varchar(50)
@@ -30,7 +31,7 @@ databaseChangeLog:
                       nullable: false
                 - column:
                     name: age
-                    type: int
+                    type: number
                     constraints:
                       nullable: false
                 - column:

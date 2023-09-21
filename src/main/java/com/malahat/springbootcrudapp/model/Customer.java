@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "customers")
+@Table(name = "CUSTOMER")
 public class Customer {
 
     @Id

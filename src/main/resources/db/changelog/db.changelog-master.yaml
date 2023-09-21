@@ -1,7 +1,7 @@
 databaseChangeLog:
-  - includeAll:
-        path: classpath*:db/changelog/v1
   - include:
-      file: db/changelog/v1/20230913-Test.yaml
+      file: db/changelog/v1/20230913-01-create-customer-sequence.yaml
   - include:
-     file: db/changelog/v1/20230920-addingProductTable.yaml
+      file: db/changelog/v1/20230913-02-create-customer-table.yaml
+  - include:
+      file: db/changelog/v1/20230921-01-create_product_table.yaml
