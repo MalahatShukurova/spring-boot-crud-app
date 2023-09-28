@@ -1,47 +1,47 @@
 package com.malahat.springbootcrudapp.controller;
 
 
-import com.malahat.springbootcrudapp.model.Customer;
+import com.malahat.springbootcrudapp.dto.CustomerDTO;
 import com.malahat.springbootcrudapp.service.CustomerService;
-import liquibase.logging.mdc.CustomMdcObject;
+import com.malahat.springbootcrudapp.service.impl.CustomerServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/v1/customers")
+@RequestMapping("/api/v1/customer")
 public class CustomerController {
 
-    private final CustomerService customerService;
-    public CustomerController(CustomerService customerService){
-        this.customerService = customerService;
+    private final CustomerServiceImpl customerServiceImpl;
+    public CustomerController(CustomerServiceImpl customerServiceImpl) {
+        this.customerServiceImpl=customerServiceImpl;
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        return ResponseEntity.ok().body(customerService.getAllCustomers());
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
+        return ResponseEntity.ok().body(customerServiceImpl.getAllCustomers());
     }
 
     @GetMapping("/one")
-    public ResponseEntity<Customer> getOneCustomer(@RequestParam("id") long customerId) {
-        return ResponseEntity.ok().body(customerService.getOneCustomer(customerId));
+    public ResponseEntity<CustomerDTO> getCustomer(@RequestParam("id") long customerId) {
+        return ResponseEntity.ok().body(customerServiceImpl.getOneCustomer(customerId));
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
-        return new ResponseEntity<>(customerService.createCustomer(customer),HttpStatus.CREATED);
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO){
+        return new ResponseEntity<>(this.customerServiceImpl.createCustomer(customerDTO),HttpStatus.CREATED);
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable long customerId, @RequestBody Customer customer){
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long customerId, @RequestBody CustomerDTO customer){
         customer.setId(customerId);
-        return ResponseEntity.ok().body(this.customerService.updateCustomer(customer));
+        return ResponseEntity.ok().body(this.customerServiceImpl.updateCustomer(customer));
     }
 
     @DeleteMapping("/{customerId}")
     public HttpStatus deleteCustomer(@PathVariable long customerId){
-        this.customerService.deleteCustomer(customerId);
+        this.customerServiceImpl.deleteCustomer(customerId);
         return HttpStatus.OK;
     }
 

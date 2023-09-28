@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+          id: 20230927-00
+          author: malahat
+          changes:
+          - createTable:
+              tableName: customer_product
+              remarks: A join table between customers and products
+              schemaName: public
+              columns:
+                - column:
+                    name: customer_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_customer_id
+                      references: public.customer(id)
+                - column:
+                    name: product_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_product_id
+                      references: public.product(id)
+          - addPrimaryKey:
+              schemaName: public
+              tableName: customer_product
+              constraintName: pk_customer_product
+              columnNames: customer_id, product_id

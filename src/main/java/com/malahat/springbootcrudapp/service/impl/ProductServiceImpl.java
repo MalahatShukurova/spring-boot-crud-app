@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,17 +27,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return this.productRepository.findAll();
     }
 
     @Override
     public Product createProduct(Product product) {
-        return null;
+        return productRepository.save(product);
     }
 
     @Override
     public Product updateProduct(Product product) {
-        return null;
+
+            Product productUpdate = new Product();
+            productUpdate.setId(product.getId());
+            productUpdate.setName(product.getName());
+            productUpdate.setPrice(product.getPrice());
+            productRepository.save(product);
+            return this.productRepository.findById(product.getId()).orElseThrow(()-> new ResourceNotFoundException("Product", "id", product));
+
     }
 
     @Override

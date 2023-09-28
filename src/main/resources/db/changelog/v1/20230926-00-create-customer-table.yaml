@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 20230921-01
+      id: 20230926-00
       author: malahat
       changes:
         - createTable:
-            tableName: product
+            tableName: customer
             columns:
               - column:
                   name: id
@@ -19,7 +19,22 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: price
-                  type: number
+                  name: surname
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number
+                  type: varchar(50)
                   constraints:
                     nullable: false

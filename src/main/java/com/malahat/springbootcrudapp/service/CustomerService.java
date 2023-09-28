@@ -1,18 +1,19 @@
 package com.malahat.springbootcrudapp.service;
 
 
+import com.malahat.springbootcrudapp.dto.CustomerDTO;
 import com.malahat.springbootcrudapp.model.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    Customer getOneCustomer(Long id);
+    CustomerDTO getOneCustomer(Long id);
 
-    List<Customer> getAllCustomers();
+    List<CustomerDTO> getAllCustomers();
 
-    Customer createCustomer(Customer customer);
-    Customer updateCustomer (Customer customer);
+    CustomerDTO createCustomer(CustomerDTO customerDTO);
+    CustomerDTO updateCustomer (CustomerDTO customer);
 
     void deleteCustomer(Long customerId);
 
