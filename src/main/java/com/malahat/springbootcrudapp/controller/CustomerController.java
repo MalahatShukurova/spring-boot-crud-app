@@ -23,7 +23,7 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerServiceImpl.getAllCustomers());
     }
 
-    @GetMapping("/one")
+    @GetMapping("/id")
     public ResponseEntity<CustomerDTO> getCustomer(@RequestParam("id") long customerId) {
         return ResponseEntity.ok().body(customerServiceImpl.getOneCustomer(customerId));
     }
@@ -44,5 +44,7 @@ public class CustomerController {
         this.customerServiceImpl.deleteCustomer(customerId);
         return HttpStatus.OK;
     }
+
+
 
 }

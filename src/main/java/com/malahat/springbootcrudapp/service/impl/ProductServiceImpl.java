@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Override
-    public Product getOneProduct(Long id) {
+    public Product getProduct(Long id) {
         return productRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product","id",id));
     }
 
