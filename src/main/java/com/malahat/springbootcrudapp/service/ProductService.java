@@ -1,18 +1,23 @@
 package com.malahat.springbootcrudapp.service;
 
-import com.malahat.springbootcrudapp.model.Product;
+import com.malahat.springbootcrudapp.dto.ProductDto;
+import com.malahat.springbootcrudapp.model.Customer;
 
 import java.util.List;
 
 public interface ProductService {
-    Product getProduct(Long id);
+    ProductDto getProduct(Long id);
 
-    List <Product> getAllProducts();
+    List <ProductDto> getAllProducts();
 
-    Product createProduct(Product product);
+    ProductDto createProduct(ProductDto productDTO);
 
-    Product updateProduct(Product product);
+    ProductDto updateProduct(ProductDto productDTO);
 
     void deleteProduct(Long id);
-    }
+
+    Customer buyProduct (Long id);
+}
+
+
 

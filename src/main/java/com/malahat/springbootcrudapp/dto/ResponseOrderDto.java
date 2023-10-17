@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO {
+public class ResponseOrderDto {
 
-    private Long id;
-    private String name;
-    private String surname;
-    private String address;
-    private int age;
-    private String number;
+    private float amount;
+    private int invoiceNumber;
+    private String date;
+    private String OrderDescription;
+    private int orderId;
+
 }

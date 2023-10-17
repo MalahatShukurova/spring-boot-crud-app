@@ -1,7 +1,7 @@
 package com.malahat.springbootcrudapp.service.impl;
 
 
-import com.malahat.springbootcrudapp.dto.CustomerDTO;
+import com.malahat.springbootcrudapp.dto.CustomerDto;
 import com.malahat.springbootcrudapp.exception.ResourceNotFoundException;
 import com.malahat.springbootcrudapp.mapper.CustomerMapper;
 import com.malahat.springbootcrudapp.model.Customer;
@@ -25,58 +25,66 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper customerMapper;
 
     @Override
-    public CustomerDTO getOneCustomer(Long id) {
-        Customer customer = this.customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
-        return this.customerMapper.mapToCustomerDTO(customer);
+    public CustomerDto getCustomer(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer", "id", id));
+        return customerMapper.mapToCustomerDTO(customer);
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
+    public List<CustomerDto> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
-
         return customers.stream().map(customerMapper::mapToCustomerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+    public CustomerDto createCustomer(CustomerDto customerDTO) {
 
-        Customer customer = this.customerMapper.mapToCustomer(customerDTO);
+        Customer customer = customerMapper.mapToCustomer(customerDTO);
 
-        Customer savedCustomer = this.customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
 
-        return this.customerMapper.mapToCustomerDTO(savedCustomer);
+        return customerMapper.mapToCustomerDTO(savedCustomer);
 
     }
 
     @Override
-    public CustomerDTO updateCustomer(CustomerDTO customer) {
-        Optional<Customer> customerDb = this.customerRepository.findById(customer.getId());
+    public CustomerDto updateCustomer(CustomerDto customerDTO) {
+        Optional<Customer> customer = customerRepository.findById(customerDTO.getId());
 
-        if (customerDb.isPresent()) {
-            Customer customerUpdate = customerDb.get();
-            customerUpdate.setId(customer.getId());
-            customerUpdate.setName(customer.getName());
-            customerUpdate.setSurname(customer.getSurname());
-            customerUpdate.setAddress(customer.getAddress());
-            customerUpdate.setAge(customer.getAge());
-            customerUpdate.setNumber(customer.getNumber());
-            this.customerRepository.save(customerUpdate);
+        if (customer.isPresent()) {
+            Customer customerUpdate = customer.get();
+            customerUpdate.setId(customerDTO.getId());
+            customerUpdate.setName(customerDTO.getName());
+            customerUpdate.setSurname(customerDTO.getSurname());
+            customerUpdate.setAddress(customerDTO.getAddress());
+            customerUpdate.setAge(customerDTO.getAge());
+            customerUpdate.setNumber(customerDTO.getNumber());
+            customerRepository.save(customerUpdate);
             return customerMapper.mapToCustomerDTO(customerUpdate);
         } else {
-            throw new ResourceNotFoundException("Customer", "id", customer);
+            throw new ResourceNotFoundException("Customer", "id", customerDTO);
         }
 
     }
 
     @Override
     public void deleteCustomer(Long customerId) {
-        Optional<Customer> customerDb = this.customerRepository.findById(customerId);
-        if (customerDb.isPresent()) {
-            this.customerRepository.delete(customerDb.get());
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if (customer.isPresent()) {
+            customerRepository.delete(customer.get());
         } else {
             throw new ResourceNotFoundException("Customer", "id", customerId);
         }
 
     }
+
+    @Override
+    public Integer isCustomerPresent(Customer customer) {
+        return null;
+    }
+
+//
+
+
 }

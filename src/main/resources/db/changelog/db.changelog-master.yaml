@@ -1,5 +1,18 @@
 databaseChangeLog:
   - include:
-      file:
+      file: db/changelog/v1/20230926-00-create-customer-table.yaml
+  - include:
+      file: db/changelog/v1/20230926-01-create-product-table.yaml
+  - include:
+      file: db/changelog/v1/20231010-01-create-join-table-purchased_products.yaml
+  - include:
+      file: db/changelog/v1/20231017-01-create-shopping-cart.yaml
+  - include:
+      file: db/changelog/v1/20231017-02-create-order-table.yaml
+  - include:
+      file: db/changelog/v1/20231017-03-add-email-column-to-customer-table.yaml
+
+
+
 
 

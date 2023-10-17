@@ -1,8 +1,10 @@
 package com.malahat.springbootcrudapp.service.impl;
 
+import com.malahat.springbootcrudapp.dto.ProductDto;
 import com.malahat.springbootcrudapp.exception.ResourceNotFoundException;
+import com.malahat.springbootcrudapp.mapper.ProductMapper;
+import com.malahat.springbootcrudapp.model.Customer;
 import com.malahat.springbootcrudapp.model.Product;
-import com.malahat.springbootcrudapp.repository.CustomerRepository;
 import com.malahat.springbootcrudapp.repository.ProductRepository;
 import com.malahat.springbootcrudapp.service.ProductService;
 import jakarta.transaction.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,35 +23,66 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+
+    @Autowired
+    private ProductMapper productMapper;
+
+
     @Override
-    public Product getProduct(Long id) {
-        return productRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product","id",id));
+    public ProductDto getProduct(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product","id",id));
+        return productMapper.mapToProductDTO(product);
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return this.productRepository.findAll();
+    public List<ProductDto> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(productMapper::mapToProductDTO).collect(Collectors.toList());
     }
 
     @Override
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
+    public ProductDto createProduct(ProductDto productDTO) {
+        Product product = productMapper.mapToProduct(productDTO);
+        Product savedProduct = productRepository.save(product);
+        return productMapper.mapToProductDTO(savedProduct);
     }
 
     @Override
-    public Product updateProduct(Product product) {
+    public ProductDto updateProduct(ProductDto productDTO) {
 
-            Product productUpdate = new Product();
-            productUpdate.setId(product.getId());
-            productUpdate.setName(product.getName());
-            productUpdate.setPrice(product.getPrice());
-            productRepository.save(product);
-            return this.productRepository.findById(product.getId()).orElseThrow(()-> new ResourceNotFoundException("Product", "id", product));
+         Optional<Product> product = productRepository.findById(productDTO.getId());
+
+         if (product.isPresent()) {
+             Product productUpdate = product.get();
+             productUpdate.setId(productDTO.getId());
+             productUpdate.setName(productDTO.getName());
+             productUpdate.setPrice(productDTO.getPrice());
+             productRepository.save(productUpdate);
+             return productMapper.mapToProductDTO(productUpdate);
+         }
+         else {
+             throw new ResourceNotFoundException("Product", "id", productDTO);
+         }
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isPresent()) {
+            productRepository.delete(product.get());
+        } else {
+            throw new ResourceNotFoundException("product");
+        }
 
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    public Customer buyProduct(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
 
+
+        return null;
     }
+
 }

@@ -1,8 +1,7 @@
 package com.malahat.springbootcrudapp.controller;
 
 
-import com.malahat.springbootcrudapp.dto.CustomerDTO;
-import com.malahat.springbootcrudapp.service.CustomerService;
+import com.malahat.springbootcrudapp.dto.CustomerDto;
 import com.malahat.springbootcrudapp.service.impl.CustomerServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +18,22 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         return ResponseEntity.ok().body(customerServiceImpl.getAllCustomers());
     }
 
     @GetMapping("/id")
-    public ResponseEntity<CustomerDTO> getCustomer(@RequestParam("id") long customerId) {
-        return ResponseEntity.ok().body(customerServiceImpl.getOneCustomer(customerId));
+    public ResponseEntity<CustomerDto> getCustomer(@RequestParam("id") long customerId) {
+        return ResponseEntity.ok().body(customerServiceImpl.getCustomer(customerId));
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO){
-        return new ResponseEntity<>(this.customerServiceImpl.createCustomer(customerDTO),HttpStatus.CREATED);
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDTO){
+        return new ResponseEntity<>(customerServiceImpl.createCustomer(customerDTO),HttpStatus.CREATED);
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable long customerId, @RequestBody CustomerDTO customer){
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable long customerId, @RequestBody CustomerDto customer){
         customer.setId(customerId);
         return ResponseEntity.ok().body(this.customerServiceImpl.updateCustomer(customer));
     }

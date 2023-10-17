@@ -3,11 +3,9 @@ package com.malahat.springbootcrudapp.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,27 +17,20 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "purchased_products",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    public Set<Customer> purchasedCustomers = new HashSet<>();
-
+    @Column
     private String name;
 
-    private BigDecimal price;
+    @Column
+    private double price;
 
+    @Column
+    private int availableQuantity;
 
-
-
-//        @ManyToMany(mappedBy = "products")
-//        private List<Customer> customers;
+    @ManyToMany(mappedBy = "products")
+    private Set<Customer> customers;
 
 
 }

@@ -2,10 +2,12 @@ package com.malahat.springbootcrudapp.model;
 
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.JavaType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -21,25 +23,31 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
-    private Set<Product> products = new HashSet<>();
-
+    @Column
     private String name;
 
+    @Column
     private String surname;
 
+    @Column
     private String address;
 
-    private Integer age;
+    @Column
+    private int age;
 
+    @Column
     private String number;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "purchased_product",
-//            joinColumns = @JoinColumn(name = "customer_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id")
-//    )
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "customer_product",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+     private Set<Product> products;
 
 
+    public Customer(String customerName, String customerEmail) {
+    }
 }

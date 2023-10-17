@@ -1,10 +1,8 @@
 package com.malahat.springbootcrudapp.controller;
 
-import com.malahat.springbootcrudapp.model.Product;
-import com.malahat.springbootcrudapp.service.ProductService;
+import com.malahat.springbootcrudapp.dto.ProductDto;
 import com.malahat.springbootcrudapp.service.impl.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,30 +20,33 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<List<Product>>getAllProducts(){
+    public ResponseEntity<List<ProductDto>> getAllProducts(){
         return ResponseEntity.ok().body(productServiceImpl.getAllProducts());
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<Product>getProduct(@RequestParam("id") long productId){
+
+    @GetMapping("/one")
+    public ResponseEntity<ProductDto> getProduct (@RequestParam ("id") long productId){
         return ResponseEntity.ok().body(productServiceImpl.getProduct(productId));
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct (@RequestBody Product product){
-        return new ResponseEntity<>(productServiceImpl.createProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<ProductDto> createProduct (@RequestBody ProductDto productDTO){
+        return new ResponseEntity<>(productServiceImpl.createProduct(productDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{productID}")
-    public ResponseEntity<Product> updateProduct (@PathVariable long productID, @RequestBody Product product){
-        product.setId(productID);
-        return ResponseEntity.ok().body(this.productServiceImpl.updateProduct(product));
+    @PutMapping("/{productId}")
+    public ResponseEntity<ProductDto> updateProduct (@PathVariable long productId, @RequestBody ProductDto product){
+        product.setId(productId);
+        return ResponseEntity.ok().body(productServiceImpl.updateProduct(product));
     }
 
-    @DeleteMapping("{id}")
-    public HttpStatus deleteProduct(@RequestParam("id") long id){
-        this.productServiceImpl.deleteProduct(id);
-        return HttpStatus.OK;
+    @DeleteMapping("/{productId}")
+    public HttpStatus deleteProduct (@PathVariable long productId){
+     this.productServiceImpl.deleteProduct(productId);
+     return HttpStatus.OK;
+
     }
+
 
 }
